@@ -1,27 +1,7 @@
+import { DATA_ATTRIBUTE_NAME, MESSAGE, TAG_CLASSES } from './modal';
+
 const DOC = window.document;
 
-const MESSAGE = {
-	title: '¡Hola programador/a!',
-	subTitle: '¿Cómo estás hoy? Espero que bién 🌟',
-	phrase: '"Cada línea de código es un paso más hacia tus metas." 🚀',
-};
-
-const DATA_ATTRIBUTE_NAME = {
-	btnClose: 'btn-close',
-	dialog: 'dialog-tag',
-};
-
-const TAG_CLASSES = {
-	modal: 'modal',
-	modalDialog: 'modal__dialog',
-	modalTitle: 'modal__title',
-	modalBotton: 'modal__button',
-	modalBottonOpen: 'modal__button--open',
-	modalBottonClose: 'modal__button--close',
-	modalContent: 'modal__content',
-	modalDialogOpen: 'modal__dialog--open',
-	modalContainer: 'modal__container',
-};
 const sectionTitle = ({ title }) => {
 	const titleTag = DOC.createElement('h2');
 
