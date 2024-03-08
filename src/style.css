@@ -27,7 +27,13 @@
 	--radius-md: 8px;
 	--radius-lg: 12px;
 
-	--duration: 150ms;
+	--duration: 200ms;
+
+	--transition-property: color, background-color, border-color,
+		text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
+		backdrop-filter;
+	--transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	--transition-duration: var(--duration);
 
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
@@ -71,6 +77,7 @@ body {
 	margin: 0 auto;
 	padding: 1rem;
 	text-align: center;
+	overflow: hidden;
 }
 
 button {
@@ -96,7 +103,9 @@ button:hover {
 /**
  * + Carrusel de Imágenes
  */
-
+.carousel {
+	min-height: 100vh;
+}
 .carousel__container {
 	display: flex;
 	flex-direction: column;
@@ -153,6 +162,71 @@ button:hover {
 }
 .carousel__btn:active {
 	transform: scale(0.8);
+}
+
+/**
+ * + Menu
+ */
+
+.menu {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: var(--slate-900);
+	padding: 2rem 0;
+}
+
+.menu__container {
+	width: 100%;
+	min-height: 100vh;
+	position: relative;
+}
+.menu__title {
+	margin-bottom: 2rem;
+}
+.menu__hamburger {
+	margin-left: auto;
+	margin-right: 1rem;
+}
+.menu__nav {
+	position: absolute;
+	top: 8rem;
+	right: 0;
+	width: 80%;
+	padding: 1rem;
+	min-height: 80vh;
+	border-radius: var(--radius-md) 0 0 var(--radius-md);
+	background-color: var(--slate-950);
+	transition: var(--transition-property), var(--transition-timing-function),
+		var(--transition-duration);
+	transform: translateX(100vw);
+}
+.menu__nav--visible {
+	transform: translateX(0);
+}
+.menu__list {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	row-gap: 0.5rem;
+}
+.menu__item {
+	border-bottom: 1px solid var(--slate-800);
+}
+.menu__link {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem;
+	text-decoration: none;
+	color: var(--slate-50);
+	transition: var(--transition-property), var(--transition-timing-function),
+		var(--transition-duration);
+
+	&:hover {
+		background-color: var(--slate-900);
+	}
 }
 
 /**

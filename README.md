@@ -12,7 +12,7 @@
 2. Implementa funciones para cambiar la imagen mostrada al hacer clic en los botones de navegación.
 3. Añade un temporizador para cambiar automáticamente las imágenes cada cierto tiempo.
 
-### 2-Slider de Contenido:
+### 2- Slider de Contenido:
 
 **Preparación del HTML:**
 
@@ -24,7 +24,7 @@
 
 2. Implementa funciones para moverse entre las diferentes secciones al hacer clic en botones de navegación o al deslizar con el dedo(para dispositivos táctiles).
 
-### 3-Menú Desplegable:
+### 3- Menú Desplegable:
 
 **Preparación del HTML:**
 
@@ -36,7 +36,7 @@
 2. Implementa una función para mostrar u ocultar el menú al hacer clic en el botón.
 3. Añade transiciones suaves para mejorar la experiencia del usuario.
 
-### 4-Modal o Ventana Emergente:
+### 4- Modal o Ventana Emergente:
 
 **Preparación del HTML:**
 
@@ -48,7 +48,7 @@
 1. Implementa una función para mostrar u ocultar el modal al hacer clic en el botón.
 1. Añade la capacidad de cerrar el modal haciendo clic fuera de él o en un botón de cierre.
 
-### 5-Barra de Progreso Interactiva:
+### 5- Barra de Progreso Interactiva:
 
 **Preparación del HTML:**
 
@@ -59,7 +59,7 @@
 1. Implementa funciones para avanzar y retroceder la barra de progreso al hacer clic en los botones de reproducción y pausa.
 1. Añade la funcionalidad de arrastrar la barra de progreso para avanzar o retroceder manualmente.
 
-# Autor
+# Autor de ejercicios
 
 Cecilia Prado
 
