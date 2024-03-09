@@ -30,4 +30,13 @@ const DIRECTION = {
 	LEFT: 'LEFT',
 };
 
-export { images, DIRECTION };
+const TAG_CLASSES = {
+	carousel: 'carousel',
+	container: 'carousel__container',
+	images: 'carousel__images',
+	image: 'carousel__image',
+	navegation: 'carousel__navegation',
+	btn: 'carousel__btn',
+};
+
+export { images, DIRECTION, TAG_CLASSES };
