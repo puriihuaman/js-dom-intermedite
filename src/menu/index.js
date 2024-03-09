@@ -1,25 +1,24 @@
-import { menuList } from './menu';
+import { createTag } from '../helper/create-tag';
+import { TAG_CLASSES, menuList } from './menu';
 
 const DOC = window.document;
 
 const navegation = ({ navTag }) => {
-	const menuListTag = DOC.createElement('ul');
-
-	navTag.classList.add('menu__nav');
-	menuListTag.classList.add('menu__list');
+	const menuListTag = createTag({ tag: 'ul', classes: [TAG_CLASSES.list] });
 
 	const fragment = DOC.createDocumentFragment();
 
 	menuList.forEach((menu) => {
-		const menuItemTag = DOC.createElement('li');
-		const menuLinkTag = DOC.createElement('a');
+		const menuItemTag = createTag({ tag: 'li', classes: [TAG_CLASSES.item] });
 
-		menuItemTag.classList.add('menu__item');
-		menuLinkTag.classList.add('menu__link');
-
-		menuLinkTag.id = menu.id;
-		menuLinkTag.href = menu.path;
-		menuLinkTag.textContent = menu.name;
+		const menuLinkTag = createTag({
+			tag: 'a',
+			id: menu.id,
+			href: menu.path,
+			classes: [TAG_CLASSES.link],
+			textContent: menu.name,
+		});
+		// menuLinkTag.href = menu.path;
 
 		menuItemTag.appendChild(menuLinkTag);
 
@@ -34,34 +33,41 @@ const navegation = ({ navTag }) => {
 
 const handleToggleMenu = ({ hamburgerMenuTag, navTag }) => {
 	hamburgerMenuTag.addEventListener('click', () => {
-		navTag.classList.contains('menu__nav--visible')
-			? navTag.classList.remove('menu__nav--visible')
-			: navTag.classList.add('menu__nav--visible');
+		navTag.classList.contains(TAG_CLASSES.navVisible)
+			? navTag.classList.remove(TAG_CLASSES.navVisible)
+			: navTag.classList.add(TAG_CLASSES.navVisible);
 	});
 };
 
 const showMenu = () => {
-	// Crea una lista de elementos de menú y un botón para abrir / cerrar el menú.
+	const menuSectionTag = createTag({
+		tag: 'section',
+		id: 'menu',
+		classes: [TAG_CLASSES.menu],
+	});
 
-	const menuSectionTag = DOC.createElement('section');
-	const containerTag = DOC.createElement('div');
-	const titleTag = DOC.createElement('h2');
-	const hamburgerMenuTag = DOC.createElement('button');
-	const navTag = DOC.createElement('nav');
+	const containerTag = createTag({
+		tag: 'div',
+		classes: [TAG_CLASSES.container],
+	});
 
-	hamburgerMenuTag.textContent = 'Menu';
+	const titleTag = createTag({
+		tag: 'h2',
+		classes: [TAG_CLASSES.title],
+		textContent: 'Menú Desplegable',
+	});
 
-	menuSectionTag.id = '#menu';
+	const hamburgerMenuTag = createTag({
+		tag: 'button',
+		classes: [TAG_CLASSES.hamburger],
+		textContent: 'Menú',
+	});
 
-	menuSectionTag.classList.add('menu');
-	containerTag.classList.add('menu__container');
-	titleTag.classList.add('menu__title');
-	hamburgerMenuTag.classList.add('menu__hamburger');
+	const navTag = createTag({ tag: 'nav', classes: [TAG_CLASSES.nav] });
 
 	navegation({ navTag });
 	handleToggleMenu({ hamburgerMenuTag, navTag });
 
-	titleTag.textContent = 'Menú Desplegable';
 	containerTag.append(titleTag, hamburgerMenuTag, navTag);
 
 	menuSectionTag.appendChild(containerTag);
