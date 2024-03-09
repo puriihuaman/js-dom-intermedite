@@ -4,28 +4,32 @@ import { TAG_CLASSES, menuList } from './menu';
 const DOC = window.document;
 
 const navegation = ({ navTag }) => {
-	const menuListTag = createTag({ tag: 'ul', classes: [TAG_CLASSES.list] });
-
 	const fragment = DOC.createDocumentFragment();
 
 	menuList.forEach((menu) => {
-		const menuItemTag = createTag({ tag: 'li', classes: [TAG_CLASSES.item] });
-
 		const menuLinkTag = createTag({
 			tag: 'a',
-			id: menu.id,
-			href: menu.path,
-			classes: [TAG_CLASSES.link],
 			textContent: menu.name,
+			href: menu.path,
+			id: menu.id,
+			class: [TAG_CLASSES.link],
 		});
-		// menuLinkTag.href = menu.path;
 
-		menuItemTag.appendChild(menuLinkTag);
+		const menuItemTag = createTag({
+			tag: 'li',
+			child: [menuLinkTag],
+			class: [TAG_CLASSES.item],
+		});
 
 		fragment.appendChild(menuItemTag);
 	});
 
-	menuListTag.appendChild(fragment);
+	const menuListTag = createTag({
+		tag: 'ul',
+		child: [fragment],
+		class: [TAG_CLASSES.list],
+	});
+
 	navTag.appendChild(menuListTag);
 
 	return navTag;
@@ -40,37 +44,35 @@ const handleToggleMenu = ({ hamburgerMenuTag, navTag }) => {
 };
 
 const showMenu = () => {
-	const menuSectionTag = createTag({
-		tag: 'section',
-		id: 'menu',
-		classes: [TAG_CLASSES.menu],
-	});
-
-	const containerTag = createTag({
-		tag: 'div',
-		classes: [TAG_CLASSES.container],
-	});
-
 	const titleTag = createTag({
 		tag: 'h2',
-		classes: [TAG_CLASSES.title],
 		textContent: 'Menú Desplegable',
+		class: [TAG_CLASSES.title],
 	});
 
 	const hamburgerMenuTag = createTag({
 		tag: 'button',
-		classes: [TAG_CLASSES.hamburger],
 		textContent: 'Menú',
+		class: [TAG_CLASSES.hamburger],
 	});
 
-	const navTag = createTag({ tag: 'nav', classes: [TAG_CLASSES.nav] });
+	const navTag = createTag({ tag: 'nav', class: [TAG_CLASSES.nav] });
 
 	navegation({ navTag });
 	handleToggleMenu({ hamburgerMenuTag, navTag });
 
-	containerTag.append(titleTag, hamburgerMenuTag, navTag);
+	const containerTag = createTag({
+		tag: 'div',
+		child: [titleTag, hamburgerMenuTag, navTag],
+		class: [TAG_CLASSES.container],
+	});
 
-	menuSectionTag.appendChild(containerTag);
+	const menuSectionTag = createTag({
+		tag: 'section',
+		child: [containerTag],
+		id: 'menu',
+		class: [TAG_CLASSES.menu],
+	});
 
 	return menuSectionTag;
 };

@@ -1,44 +1,42 @@
-import { DATA_ATTRIBUTE_NAME, MESSAGE, TAG_CLASSES, createTag } from './modal';
+import { createTag } from '../helper/create-tag';
+import { DATA_ATTRIBUTE_NAME, MESSAGE, TAG_CLASSES } from './modal';
 
 const sectionTitle = ({ title }) => {
 	const titleTag = createTag({
 		tag: 'h2',
-		classes: [TAG_CLASSES.modalTitle],
 		textContent: title,
+		class: [TAG_CLASSES.modalTitle],
 	});
 
 	return { titleTag };
 };
 
 const createModal = () => {
-	const dialogTag = createTag({
-		tag: 'dialog',
-		id: DATA_ATTRIBUTE_NAME.dialog,
-		classes: [TAG_CLASSES.modalDialog],
-		dataAttributeName: 'dialog',
-		dataAttributeValue: DATA_ATTRIBUTE_NAME.dialog,
-	});
-
-	const containerDialogTag = createTag({
-		tag: 'article',
-		classes: [TAG_CLASSES.modalContent],
-	});
-
 	const titleTag = createTag({ tag: 'h3', textContent: MESSAGE.title });
 	const subTitle = createTag({ tag: 'p', textContent: MESSAGE.subTitle });
 	const paragraphTag = createTag({ tag: 'p', textContent: MESSAGE.phrase });
 
 	const btnCloseTag = createTag({
 		tag: 'button',
-		id: DATA_ATTRIBUTE_NAME.btnClose,
-		classes: [TAG_CLASSES.modalBotton, TAG_CLASSES.modalBottonClose],
 		textContent: 'Cerrar',
-		dataAttributeName: 'btnClose',
-		dataAttributeValue: DATA_ATTRIBUTE_NAME.btnClose,
+		id: DATA_ATTRIBUTE_NAME.btnClose,
+		class: [TAG_CLASSES.modalBotton, TAG_CLASSES.modalBottonClose],
+		'data-btn-close': DATA_ATTRIBUTE_NAME.btnClose,
 	});
 
-	containerDialogTag.append(titleTag, subTitle, paragraphTag, btnCloseTag);
-	dialogTag.appendChild(containerDialogTag);
+	const containerDialogTag = createTag({
+		tag: 'article',
+		child: [titleTag, subTitle, paragraphTag, btnCloseTag],
+		class: [TAG_CLASSES.modalContent],
+	});
+
+	const dialogTag = createTag({
+		tag: 'dialog',
+		child: [containerDialogTag],
+		id: DATA_ATTRIBUTE_NAME.dialog,
+		class: [TAG_CLASSES.modalDialog],
+		'data-ialog': DATA_ATTRIBUTE_NAME.dialog,
+	});
 
 	dialogTag.addEventListener('click', (ev) => {
 		if (
@@ -55,36 +53,36 @@ const createModal = () => {
 	return { dialogTag };
 };
 
+const handleOpenModal = ({ dialogTag }) => {
+	dialogTag.classList.add(TAG_CLASSES.modalDialogOpen);
+
+	dialogTag.showModal();
+};
+
 const showModal = () => {
-	const modalSectionTag = createTag({
-		tag: 'section',
-		id: TAG_CLASSES.modal,
-		classes: [TAG_CLASSES.modal],
-	});
-
-	const containerTag = createTag({
-		tag: 'div',
-		classes: [TAG_CLASSES.modalContainer],
-	});
-
 	const btnOpenTag = createTag({
 		tag: 'button',
-		classes: [TAG_CLASSES.modalBotton, TAG_CLASSES.modalBottonOpen],
 		textContent: 'Abrir modal',
+		class: [TAG_CLASSES.modalBotton, TAG_CLASSES.modalBottonOpen],
 	});
 
 	const { titleTag } = sectionTitle({ title: 'Modal' });
 	const { dialogTag } = createModal();
 
-	btnOpenTag.addEventListener('click', () => {
-		dialogTag.classList.add(TAG_CLASSES.modalDialogOpen);
+	btnOpenTag.addEventListener('click', () => handleOpenModal({ dialogTag }));
 
-		dialogTag.showModal();
+	const containerTag = createTag({
+		tag: 'div',
+		child: [titleTag, btnOpenTag, dialogTag],
+		class: [TAG_CLASSES.modalContainer],
 	});
 
-	containerTag.append(titleTag, btnOpenTag, dialogTag);
-
-	modalSectionTag.appendChild(containerTag);
+	const modalSectionTag = createTag({
+		tag: 'section',
+		child: [containerTag],
+		id: TAG_CLASSES.modal,
+		class: [TAG_CLASSES.modal],
+	});
 
 	return modalSectionTag;
 };

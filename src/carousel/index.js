@@ -57,42 +57,22 @@ const handlerImage = ({ direction = 'RIGHT', imageTag }) => {
 };
 
 const showCarousel = () => {
-	const carousel = createTag({
-		tag: 'section',
-		id: 'carousel',
-		classes: [TAG_CLASSES.carousel],
-	});
-
-	const container = createTag({ tag: 'div', classes: [TAG_CLASSES.container] });
-
-	const imagesContainer = createTag({
-		tag: 'div',
-		classes: [TAG_CLASSES.images],
-	});
-
-	const navegation = createTag({
-		tag: 'nav',
-		classes: [TAG_CLASSES.navegation],
-	});
-
 	const btnPrevious = createTag({
 		tag: 'button',
 		id: 'btn-prev',
 		textContent: '<',
 		title: 'Anterior',
-		classes: [TAG_CLASSES.btn, 'prev'],
+		class: [TAG_CLASSES.btn],
 	});
 	const btnNext = createTag({
 		tag: 'button',
-		id: 'btn-next',
 		textContent: '>',
+		id: 'btn-next',
 		title: 'Siguiente',
-		classes: [TAG_CLASSES.btn, 'next'],
+		class: [TAG_CLASSES.btn],
 	});
 
-	navegation.append(btnPrevious, btnNext);
-
-	const imageTag = createTag({ tag: 'img', classes: [TAG_CLASSES.image] });
+	const imageTag = createTag({ tag: 'img', class: [TAG_CLASSES.image] });
 
 	automaticCarouselTimer({ imageTag, time: 3000 });
 
@@ -106,10 +86,30 @@ const showCarousel = () => {
 
 	imagePreview({ imageTag });
 
-	imagesContainer.appendChild(imageTag);
-	container.append(imagesContainer, navegation);
+	const navegation = createTag({
+		tag: 'nav',
+		child: [btnPrevious, btnNext],
+		class: [TAG_CLASSES.navegation],
+	});
 
-	carousel.appendChild(container);
+	const imagesContainer = createTag({
+		tag: 'div',
+		child: [imageTag],
+		class: [TAG_CLASSES.images],
+	});
+
+	const container = createTag({
+		tag: 'div',
+		child: [imagesContainer, navegation],
+		class: [TAG_CLASSES.container],
+	});
+
+	const carousel = createTag({
+		tag: 'section',
+		child: [container],
+		id: 'carousel',
+		class: [TAG_CLASSES.carousel],
+	});
 
 	return carousel;
 };

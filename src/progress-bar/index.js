@@ -12,16 +12,6 @@ const VALUES = {
 
 let COUNTER = 0;
 
-const createTitle = () => {
-	const titleTag = createTag({
-		tag: 'h2',
-		classes: [TAG_CLASSES.title],
-		textContent: 'Barra de progreso',
-	});
-
-	return { titleTag };
-};
-
 const handlePlay = ({ updateProgressBar, btnPause, barTag }) => {
 	VALUES.play = true;
 	VALUES.pause = false;
@@ -33,9 +23,7 @@ const handlePlay = ({ updateProgressBar, btnPause, barTag }) => {
 		VALUES.count = 0;
 		ROOT_STYLES.setProperty('--transform-bar', `${VALUES.count}%`);
 		barTag.title = String(VALUES.count + '%');
-		setTimeout(() => {
-			updateProgressBar();
-		}, 500);
+		setTimeout(() => updateProgressBar(), 500);
 	} else {
 		updateProgressBar();
 	}
@@ -63,35 +51,31 @@ const handleMoveProgressBar = ({
 }) => {};
 
 const createProgressBar = () => {
-	const progressBar = createTag({ tag: 'div', classes: [TAG_CLASSES.content] });
-	const barTag = createTag({
-		tag: 'div',
-		classes: [TAG_CLASSES.bar],
-		title: String(VALUES.count + '%'),
-	});
 	const fillBar = createTag({
 		tag: 'div',
 		id: 'fill-bar',
-		classes: [TAG_CLASSES.fill],
+		class: [TAG_CLASSES.fill],
 	});
-
-	const buttonsTag = createTag({ tag: 'div', classes: [TAG_CLASSES.buttons] });
 
 	const btnPlay = createTag({
 		tag: 'button',
-		classes: [TAG_CLASSES.btn, TAG_CLASSES.btnPlay],
 		textContent: '▶️',
+		class: [TAG_CLASSES.btn, TAG_CLASSES.btnPlay],
 	});
 
 	const btnPause = createTag({
 		tag: 'button',
-		classes: [TAG_CLASSES.btn, TAG_CLASSES.btnPause, TAG_CLASSES.btnDisabled],
 		textContent: '⏸️',
+		disabled: true,
+		class: [TAG_CLASSES.btn, TAG_CLASSES.btnPause, TAG_CLASSES.btnDisabled],
 	});
 
-	barTag.appendChild(fillBar);
-
-	btnPause.disabled = true;
+	const barTag = createTag({
+		tag: 'div',
+		child: [fillBar],
+		class: [TAG_CLASSES.bar],
+		title: String(VALUES.count + '%'),
+	});
 
 	const updateProgressBar = () => {
 		if (VALUES.play && !VALUES.pause && COUNTER <= VALUES.max) {
@@ -128,29 +112,42 @@ const createProgressBar = () => {
 		handleMoveProgressBar({ ev, barTag, fillBar, updateProgressBar })
 	);
 
-	buttonsTag.append(btnPlay, btnPause);
-	progressBar.append(barTag, buttonsTag);
+	const buttonsTag = createTag({
+		tag: 'div',
+		child: [btnPlay, btnPause],
+		class: [TAG_CLASSES.buttons],
+	});
+
+	const progressBar = createTag({
+		tag: 'div',
+		child: [barTag, buttonsTag],
+		class: [TAG_CLASSES.content],
+	});
 
 	return { progressBar };
 };
 
 const showProgressBar = () => {
-	const progressBarSectionTag = createTag({
-		tag: 'section',
-		id: 'progress',
-		classes: [TAG_CLASSES.progress],
+	const titleTag = createTag({
+		tag: 'h2',
+		textContent: 'Barra de progreso',
+		class: [TAG_CLASSES.title],
 	});
-	const containerTag = createTag({
-		tag: 'div',
-		classes: [TAG_CLASSES.container],
-	});
-
-	const { titleTag } = createTitle();
 	const { progressBar } = createProgressBar();
 
-	containerTag.append(titleTag, progressBar);
+	const containerTag = createTag({
+		tag: 'div',
+		child: [titleTag, progressBar],
+		class: [TAG_CLASSES.container],
+	});
 
-	progressBarSectionTag.appendChild(containerTag);
+	const progressBarSectionTag = createTag({
+		tag: 'section',
+		child: [containerTag],
+		id: 'progress',
+		class: [TAG_CLASSES.progress],
+	});
+
 	return progressBarSectionTag;
 };
 
