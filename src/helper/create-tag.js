@@ -1,26 +1,27 @@
 export const createTag = ({
 	tag = 'div',
-	id = '',
-	href = '',
-	src = '',
-	classes = [],
 	textContent = '',
-	title = '',
-	dataAttributeName = '',
-	dataAttributeValue = '',
+	child = [],
+	...rest
 }) => {
 	const DOC = window.document;
 
 	const tagName = DOC.createElement(tag);
-	href !== '' && (tagName.href = href);
-	id !== '' && (tagName.id = id);
-	title !== '' && (tagName.title = title);
-	src !== '' && (tagName.src = src);
 	textContent !== '' && (tagName.textContent = textContent);
 
-	dataAttributeName !== '' &&
-		(tagName.dataset[dataAttributeName] = dataAttributeValue);
-	tagName.classList.add(...classes);
+	if (child.length > 0) {
+		tagName.append(...child);
+	}
+
+	if (Object.keys(rest).length > 0) {
+		Object.entries(rest).forEach(([key, value]) => {
+			if (Array.isArray(value)) {
+				tagName.setAttribute(key, value.join(' '));
+			} else {
+				tagName.setAttribute(key, value);
+			}
+		});
+	}
 
 	return tagName;
 };
