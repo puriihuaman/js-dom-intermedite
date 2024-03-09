@@ -1,3 +1,23 @@
+const createTag = ({
+	tag = 'div',
+	id = '',
+	classes = [],
+	textContent = '',
+	dataAttributeName = '',
+	dataAttributeValue = '',
+}) => {
+	const DOC = window.document;
+	const tagName = DOC.createElement(tag);
+	id !== '' && (tagName.id = id);
+	textContent !== '' && (tagName.textContent = textContent);
+
+	dataAttributeName !== '' &&
+		(tagName.dataset[dataAttributeName] = dataAttributeValue);
+	tagName.classList.add(...classes);
+
+	return tagName;
+};
+
 const MESSAGE = {
 	title: '¡Hola programador/a!',
 	subTitle: '¿Cómo estás hoy? Espero que bién 🌟',
@@ -21,4 +41,4 @@ const TAG_CLASSES = {
 	modalContainer: 'modal__container',
 };
 
-export { MESSAGE, DATA_ATTRIBUTE_NAME, TAG_CLASSES };
+export { createTag, MESSAGE, DATA_ATTRIBUTE_NAME, TAG_CLASSES };

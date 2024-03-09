@@ -1,41 +1,41 @@
-import { DATA_ATTRIBUTE_NAME, MESSAGE, TAG_CLASSES } from './modal';
-
-const DOC = window.document;
+import { DATA_ATTRIBUTE_NAME, MESSAGE, TAG_CLASSES, createTag } from './modal';
 
 const sectionTitle = ({ title }) => {
-	const titleTag = DOC.createElement('h2');
-
-	titleTag.textContent = title;
-	titleTag.classList.add(TAG_CLASSES.modalTitle);
+	const titleTag = createTag({
+		tag: 'h2',
+		classes: [TAG_CLASSES.modalTitle],
+		textContent: title,
+	});
 
 	return { titleTag };
 };
 
 const createModal = () => {
-	const dialogTag = DOC.createElement('dialog');
-	const containerDialogTag = DOC.createElement('article');
+	const dialogTag = createTag({
+		tag: 'dialog',
+		id: DATA_ATTRIBUTE_NAME.dialog,
+		classes: [TAG_CLASSES.modalDialog],
+		dataAttributeName: 'dialog',
+		dataAttributeValue: DATA_ATTRIBUTE_NAME.dialog,
+	});
 
-	const titleTag = DOC.createElement('h3');
-	const subTitle = DOC.createElement('p');
-	const paragraphTag = DOC.createElement('p');
-	const btnCloseTag = DOC.createElement('button');
+	const containerDialogTag = createTag({
+		tag: 'article',
+		classes: [TAG_CLASSES.modalContent],
+	});
 
-	titleTag.textContent = MESSAGE.title;
-	subTitle.textContent = MESSAGE.subTitle;
-	paragraphTag.textContent = MESSAGE.phrase;
+	const titleTag = createTag({ tag: 'h3', textContent: MESSAGE.title });
+	const subTitle = createTag({ tag: 'p', textContent: MESSAGE.subTitle });
+	const paragraphTag = createTag({ tag: 'p', textContent: MESSAGE.phrase });
 
-	btnCloseTag.textContent = 'Cerrar';
-	btnCloseTag.id = DATA_ATTRIBUTE_NAME.btnClose;
-	btnCloseTag.dataset.btnClose = DATA_ATTRIBUTE_NAME.btnClose;
-	btnCloseTag.classList.add(
-		TAG_CLASSES.modalBotton,
-		TAG_CLASSES.modalBottonClose
-	);
-
-	containerDialogTag.classList.add(TAG_CLASSES.modalContent);
-	dialogTag.id = DATA_ATTRIBUTE_NAME.dialog;
-	dialogTag.dataset.dialog = DATA_ATTRIBUTE_NAME.dialog;
-	dialogTag.classList.add(TAG_CLASSES.modalDialog);
+	const btnCloseTag = createTag({
+		tag: 'button',
+		id: DATA_ATTRIBUTE_NAME.btnClose,
+		classes: [TAG_CLASSES.modalBotton, TAG_CLASSES.modalBottonClose],
+		textContent: 'Cerrar',
+		dataAttributeName: 'btnClose',
+		dataAttributeValue: DATA_ATTRIBUTE_NAME.btnClose,
+	});
 
 	containerDialogTag.append(titleTag, subTitle, paragraphTag, btnCloseTag);
 	dialogTag.appendChild(containerDialogTag);
@@ -56,18 +56,24 @@ const createModal = () => {
 };
 
 const showModal = () => {
-	const modalSectionTag = DOC.createElement('section');
-	const containerTag = DOC.createElement('div');
-	const btnOpenTag = DOC.createElement('button');
+	const modalSectionTag = createTag({
+		tag: 'section',
+		id: TAG_CLASSES.modal,
+		classes: [TAG_CLASSES.modal],
+	});
+
+	const containerTag = createTag({
+		tag: 'div',
+		classes: [TAG_CLASSES.modalContainer],
+	});
+
+	const btnOpenTag = createTag({
+		tag: 'button',
+		classes: [TAG_CLASSES.modalBotton, TAG_CLASSES.modalBottonOpen],
+		textContent: 'Abrir modal',
+	});
 
 	const { titleTag } = sectionTitle({ title: 'Modal' });
-
-	btnOpenTag.textContent = 'Abrir modal';
-	btnOpenTag.classList.add(
-		TAG_CLASSES.modalBotton,
-		TAG_CLASSES.modalBottonOpen
-	);
-
 	const { dialogTag } = createModal();
 
 	btnOpenTag.addEventListener('click', () => {
@@ -77,10 +83,7 @@ const showModal = () => {
 	});
 
 	containerTag.append(titleTag, btnOpenTag, dialogTag);
-	containerTag.classList.add(TAG_CLASSES.modalContainer);
 
-	modalSectionTag.id = 'modal';
-	modalSectionTag.classList.add(TAG_CLASSES.modal);
 	modalSectionTag.appendChild(containerTag);
 
 	return modalSectionTag;
