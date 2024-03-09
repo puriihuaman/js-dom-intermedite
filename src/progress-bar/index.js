@@ -1,4 +1,5 @@
-import { TAG_CLASSES, createTag } from './progress-bar';
+import { createTag } from '../helper/create-tag';
+import { TAG_CLASSES } from './progress-bar';
 
 const ROOT_STYLES = document.documentElement.style;
 
@@ -12,8 +13,11 @@ const VALUES = {
 let COUNTER = 0;
 
 const createTitle = () => {
-	const titleTag = createTag({ tag: 'h2', classes: [TAG_CLASSES.title] });
-	titleTag.textContent = 'Barra de progreso';
+	const titleTag = createTag({
+		tag: 'h2',
+		classes: [TAG_CLASSES.title],
+		textContent: 'Barra de progreso',
+	});
 
 	return { titleTag };
 };
@@ -60,7 +64,11 @@ const handleMoveProgressBar = ({
 
 const createProgressBar = () => {
 	const progressBar = createTag({ tag: 'div', classes: [TAG_CLASSES.content] });
-	const barTag = createTag({ tag: 'div', classes: [TAG_CLASSES.bar] });
+	const barTag = createTag({
+		tag: 'div',
+		classes: [TAG_CLASSES.bar],
+		title: String(VALUES.count + '%'),
+	});
 	const fillBar = createTag({
 		tag: 'div',
 		id: 'fill-bar',
@@ -72,18 +80,17 @@ const createProgressBar = () => {
 	const btnPlay = createTag({
 		tag: 'button',
 		classes: [TAG_CLASSES.btn, TAG_CLASSES.btnPlay],
+		textContent: '▶️',
 	});
 
 	const btnPause = createTag({
 		tag: 'button',
 		classes: [TAG_CLASSES.btn, TAG_CLASSES.btnPause, TAG_CLASSES.btnDisabled],
+		textContent: '⏸️',
 	});
 
-	barTag.title = String(VALUES.count + '%');
-
 	barTag.appendChild(fillBar);
-	btnPlay.textContent = '▶️';
-	btnPause.textContent = '⏸️';
+
 	btnPause.disabled = true;
 
 	const updateProgressBar = () => {
@@ -130,7 +137,7 @@ const createProgressBar = () => {
 const showProgressBar = () => {
 	const progressBarSectionTag = createTag({
 		tag: 'section',
-		id: 'progress-bar',
+		id: 'progress',
 		classes: [TAG_CLASSES.progress],
 	});
 	const containerTag = createTag({

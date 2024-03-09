@@ -1,12 +1,3 @@
-const createTag = ({ tag = 'div', id = '', classes = [] }) => {
-	const DOC = window.document;
-	const tagName = DOC.createElement(tag);
-	id !== '' ?? (tagName.id = id);
-	tagName.classList.add(...classes);
-
-	return tagName;
-};
-
 const TAG_CLASSES = {
 	progress: 'progress',
 	container: 'progress__container',
@@ -21,4 +12,4 @@ const TAG_CLASSES = {
 	btnDisabled: 'progress__button--disabled',
 };
 
-export { createTag, TAG_CLASSES };
+export { TAG_CLASSES };
