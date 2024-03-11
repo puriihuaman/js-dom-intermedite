@@ -5,8 +5,8 @@ const MESSAGE = {
 };
 
 const DATA_ATTRIBUTE_NAME = {
-	btnClose: 'btn-close',
-	dialog: 'dialog-tag',
+	BTN_CLOSE: 'btn-close',
+	DIALOG: 'dialog-tag',
 };
 
 const TAG_CLASSES = {
