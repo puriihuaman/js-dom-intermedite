@@ -1,6 +1,7 @@
 const menuList = [
 	{ id: crypto.randomUUID(), name: 'Home', path: '/' },
 	{ id: crypto.randomUUID(), name: 'Carrusel', path: '#carousel' },
+	{ id: crypto.randomUUID(), name: 'Slider', path: '#slider' },
 	{ id: crypto.randomUUID(), name: 'Menu', path: '#menu' },
 	{ id: crypto.randomUUID(), name: 'Modal', path: '#modal' },
 	{ id: crypto.randomUUID(), name: 'Barra', path: '#progress' },
